@@ -1,6 +1,7 @@
 import telebot
 from api_key import API_KEY
 import stealer
+import stealer_type as steal
 
 bot = telebot.TeleBot(API_KEY)
 
@@ -18,13 +19,14 @@ def start(message):
 
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
-    if "songsterr" in message.text.lower():
-        try:
-            bot.reply_to(message, stealer.get_gp_file(message.text.lower()))
-        except:
-            bot.reply_to(message, "Something went wrong")
-    else:
-        bot.reply_to(message, "Ты ебанулся, хуила? Тебе же долбаёбине английским языком написали, запости линк на сонгстерр")
+    try:
+        if "songsterr" in message.text.lower():
+            bot.reply_to(message, stealer.get_gp_file(message.text.lower(), steal.BY_URL))
+        else:
+            bot.reply_to(message, stealer.get_gp_file(message.text.lower(), steal.BY_SEARCH_STRING))
+
+    except:
+        bot.reply_to(message, "Something went wrong")
 
 
 bot.polling()
