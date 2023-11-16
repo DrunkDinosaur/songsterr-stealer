@@ -3,6 +3,7 @@ import json
 import stealer_type as steal
 from bs4 import BeautifulSoup as bsoup
 from string import Template
+from song_info import SongInfo
 
 GP_URL_TEMPLATE = Template("https://www.songsterr.com/api/meta/$id/revisions")
 SONGSTERR_SEARCH_TEMPLATE = Template("https://www.songsterr.com/?pattern=$search_string")
@@ -45,5 +46,5 @@ def get_song_id(url: str):
 def get_gp_file_url(song_id: int):
     url = GP_URL_TEMPLATE.substitute(id=song_id)
     r = requests.get(url)
-    jsonified = json.loads(r.text)
-    return jsonified[0]['source']
+    jsonified = json.loads(r.text)[0] # request return array of revisions, we only need the fresh one
+    return SongInfo(jsonified['artist'], jsonified['title'], jsonified['source']).to_string()

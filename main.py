@@ -29,4 +29,4 @@ def text_handler(message):
         bot.reply_to(message, "Something went wrong")
 
 
-bot.polling()
+bot.infinity_polling()
