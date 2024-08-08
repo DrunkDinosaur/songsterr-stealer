@@ -11,6 +11,7 @@ SONGSTERR_SEARCH_TEMPLATE = Template("https://www.songsterr.com/?pattern=$search
 # TODO: change SONGSTERR_SEARCH_TEMPLATE:
 # https://www.songsterr.com/api/songs?size=50&pattern=pink%20floyd%20gig
 
+
 def get_gp_file(request_string: str, stealer_type: str):
     if stealer_type is steal.BY_URL:
         song_id = get_song_id(request_string)
